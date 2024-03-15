@@ -12,7 +12,7 @@ bot.on("message", async (msg) => {
     await bot.sendMessage(chatId, "Ниже появится кнопка,заполни форму", {
       reply_markup: {
         keyboard: [
-          [{ text: "Ваша карточка", web_app: { url: webAppUrl  } }],
+          [{ text: "заполнить форму", web_app: { url: webAppUrl + "/form" } }],
         ],
       },
     });
@@ -20,7 +20,7 @@ bot.on("message", async (msg) => {
   await bot.sendMessage(chatId, "Создай карту", {
     reply_markup: {
       inline_keyboard: [
-        [{ text: "заполнить форму", web_app: { url: webAppUrl+ "/form"} }],
+        [{ text: "Ваша карточка", web_app: { url: webAppUrl } }],
       ],
     },
   });
