@@ -25,8 +25,6 @@ bot.on("message", async (msg) => {
     },
   });
 
-  bot.sendMessage(chatId, "Received your message");
-
   if (msg?.web_app_data?.data) {
     try {
       const data = JSON.parse(msg?.web_app_data?.data);
