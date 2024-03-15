@@ -20,7 +20,7 @@ bot.on("message", async (msg) => {
   await bot.sendMessage(chatId, "Создай карту", {
     reply_markup: {
       inline_keyboard: [
-        [{ text: "заполнить форму", web_app: { url: webAppUrl+ "/card"} }],
+        [{ text: "заполнить форму", web_app: { url: webAppUrl+ "/form"} }],
       ],
     },
   });
