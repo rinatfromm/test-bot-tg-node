@@ -11,15 +11,17 @@ bot.on("message", async (msg) => {
   if (text === "/start") {
     await bot.sendMessage(chatId, "Ниже появится кнопка,заполни форму", {
       reply_markup: {
-        nline_keyboard: [
-          [{ text: "заполнить форму", web_app: { url: webAppUrl + "/form" } }],
+        keyboard: [
+          [{ text: "заполнить форму", web_app: { url: webAppUrl  } }],
         ],
       },
     });
   }
   await bot.sendMessage(chatId, "Создай карту", {
     reply_markup: {
-      keyboard: [[{ text: "Ваша карточка", web_app: { url: webAppUrl } }]],
+      inline_keyboard: [
+        [{ text: "Ваша карточка", web_app: { url: webAppUrl + "/form"} }],
+      ],
     },
   });
 
