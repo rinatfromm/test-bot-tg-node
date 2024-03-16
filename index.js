@@ -37,6 +37,7 @@ bot.on("message", async (msg) => {
       await bot.sendMessage(chatId, "Спасибо за обратную связь!");
       await bot.sendMessage(chatId, "Ваше имя: " + data?.userName);
       await bot.sendMessage(chatId, "Ваш возраст: " + data?.userAge);
+      await bot.sendMessage(chatId, "Ваше фото: " + data?.userFoto);
       console.log(data);
       setTimeout(async () => {
         await bot.sendMessage(chatId, "Всю информацию вы получите в этом чате");
