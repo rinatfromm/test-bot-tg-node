@@ -37,8 +37,8 @@ bot.on("message", async (msg) => {
       await bot.sendMessage(chatId, "Ваш возраст: " + data?.userAge);
 
       if (data.userFoto) {
-        await bot.sendPhoto(chatId, data.userFoto);
-      }
+        await bot.sendPhoto(chatId, data.userFoto.file_id); // Попробуйте использовать data.userFoto.file_id
+    }
 
       console.log(data);
       setTimeout(async () => {
