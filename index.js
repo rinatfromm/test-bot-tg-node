@@ -9,23 +9,11 @@ bot.on("message", async (msg) => {
   const text = msg.text;
 
   if (text === "/start") {
-    // await bot.sendMessage(chatId, "Ниже появится кнопка, заполни форму", {
-    //   reply_markup: {
-    //     inline_keyboard: [[{ text: "Заполнить форму", web_app: { url: webAppUrl } }]],
-    //   },
-    // });
-
-    await bot.sendMessage(
-      chatId,
-      "Ниже появится кнопка, заполни форму",
-      {
-        reply_markup: {
-          keyboard: [
-            [{ text: "Заполнить форму", web_app: { url: webAppUrl } }],
-          ],
-        },
-      }
-    );
+    await bot.sendMessage(chatId, "Ниже появится кнопка, заполни форму", {
+      reply_markup: {
+        keyboard: [[{ text: "Заполнить форму", web_app: { url: webAppUrl } }]],
+      },
+    });
   }
 
   if (msg?.web_app_data?.data) {
@@ -36,9 +24,9 @@ bot.on("message", async (msg) => {
       await bot.sendMessage(chatId, "Ваше имя: " + data?.userName);
       await bot.sendMessage(chatId, "Ваш возраст: " + data?.userAge);
 
-    //   if (data.userFoto) {
-    //     await bot.sendPhoto(chatId, data.userFoto);
-    // }
+      //   if (data.userFoto) {
+      //     await bot.sendPhoto(chatId, data.userFoto);
+      // }
 
       console.log(data);
       setTimeout(async () => {
