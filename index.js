@@ -8,23 +8,27 @@ bot.on("message", async (msg) => {
   const chatId = msg.chat.id;
   const text = msg.text;
 
-  if(text === '/start') {
-    await bot.sendMessage(chatId, 'Ниже появится кнопка, заполни форму', {
-        reply_markup: {
-            keyboard: [
-                [{text: 'Заполнить форму', web_app: {url: webAppUrl + '/form'}}]
-            ]
-        }
-    })
+  if (text === "/start") {
+    await bot.sendMessage(chatId, "Ниже появится кнопка, заполни форму", {
+      reply_markup: {
+        keyboard: [
+          [{ text: "Заполнить форму", web_app: { url: webAppUrl  } }],
+        ],
+      },
+    });
 
-    await bot.sendMessage(chatId, 'Заходи в наш интернет магазин по кнопке ниже', {
+    await bot.sendMessage(
+      chatId,
+      "Заходи в наш интернет магазин по кнопке ниже",
+      {
         reply_markup: {
-            inline_keyboard: [
-                [{text: 'Сделать заказ', web_app: {url: webAppUrl}}]
-            ]
-        }
-    })
-}
+          inline_keyboard: [
+            [{ text: "Сделать заказ", web_app: { url: webAppUrl + "/card"} }],
+          ],
+        },
+      }
+    );
+  }
 
   if (msg?.web_app_data?.data) {
     try {
@@ -33,7 +37,7 @@ bot.on("message", async (msg) => {
       await bot.sendMessage(chatId, "Спасибо за обратную связь!");
       await bot.sendMessage(chatId, "Ваша страна: " + data?.country);
       await bot.sendMessage(chatId, "Ваша улица: " + data?.street);
-
+      console.log(data);
       setTimeout(async () => {
         await bot.sendMessage(chatId, "Всю информацию вы получите в этом чате");
       }, 3000);
