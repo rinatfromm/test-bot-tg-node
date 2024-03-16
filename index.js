@@ -15,17 +15,17 @@ bot.on("message", async (msg) => {
       },
     });
 
-    await bot.sendMessage(
-      chatId,
-      "Заходи в наш интернет магазин по кнопке ниже",
-      {
-        reply_markup: {
-          inline_keyboard: [
-            [{ text: "Сделать заказ", web_app: { url: webAppUrl + "/card" } }],
-          ],
-        },
-      }
-    );
+    // await bot.sendMessage(
+    //   chatId,
+    //   "Заходи в наш интернет магазин по кнопке ниже",
+    //   {
+    //     reply_markup: {
+    //       inline_keyboard: [
+    //         [{ text: "Сделать заказ", web_app: { url: webAppUrl + "/card" } }],
+    //       ],
+    //     },
+    //   }
+    // );
   }
 
   if (msg?.web_app_data?.data) {
@@ -36,9 +36,9 @@ bot.on("message", async (msg) => {
       await bot.sendMessage(chatId, "Ваше имя: " + data?.userName);
       await bot.sendMessage(chatId, "Ваш возраст: " + data?.userAge);
 
-      if (data.userFoto) {
-        await bot.sendPhoto(chatId, data.userFoto);
-    }
+    //   if (data.userFoto) {
+    //     await bot.sendPhoto(chatId, data.userFoto);
+    // }
 
       console.log(data);
       setTimeout(async () => {
