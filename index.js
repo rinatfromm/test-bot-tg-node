@@ -34,30 +34,17 @@ bot.on("message", async (msg) => {
 });
 
 bot.on("photo", async (msg) => {
-  const chatId = msg.chat.id;
-
-  // Получаем информацию о фотографии
   const photo = msg.photo[msg.photo.length - 1];
   const photoId = photo.file_id;
 
   try {
-    // Запрашиваем информацию о фотографии
     const fileInfo = await bot.getFile(photoId);
-
-    // Получаем ссылку на файл
     const fileUrl = `https://api.telegram.org/file/bot${token}/${fileInfo.file_path}`;
 
-    // Отправляем ссылку на изображение в чат
-    await bot.sendMessage(chatId, `Вы отправили фотографию: ${fileUrl}`);
+    // Сохранение ссылки на фотографию в Redux
+    dispatch(setUserPhoto(fileUrl));
 
-    // Отправляем фотографию на сервер
-    await axios.post('http://yourserver.com/upload/photo', {
-      photoUrl: fileUrl
-    });
-
-    // Отправляем сообщение с подтверждением
-    await bot.sendMessage(chatId, "Фотография успешно получена и сохранена!");
-
+    await bot.sendMessage(chatId, "Фотография успешно получена и сохранена в Redux!");
   } catch (err) {
     console.error("Ошибка получения информации о файле:", err);
     await bot.sendMessage(
@@ -66,3 +53,5 @@ bot.on("photo", async (msg) => {
     );
   }
 });
+
+
