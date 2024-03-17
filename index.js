@@ -1,7 +1,7 @@
 const TelegramBot = require("node-telegram-bot-api");
 const axios = require('axios');
 const { useDispatch } = require("react-redux");
-const { setUserPhoto } = require('./store/slices/formSlice'); // Импортируем экшн
+const { setUserPhoto } = require('././../test-bot-tg/src/store/slices/formSlice'); // Импортируем экшн
 
 const token = "7052992202:AAGTD6eOEU95USn7BkoXZmNTAM9Ij0-TmYM";
 const webAppUrl = "https://velvety-custard-289c52.netlify.app/";
