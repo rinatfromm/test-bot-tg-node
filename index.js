@@ -1,7 +1,5 @@
 const TelegramBot = require("node-telegram-bot-api");
 const axios = require('axios');
-const { useDispatch } = require("react-redux");
-const { setUserPhoto } = require('././../test-bot-tg/src/store/slices/formSlice'); // Импортируем экшн
 
 const token = "7052992202:AAGTD6eOEU95USn7BkoXZmNTAM9Ij0-TmYM";
 const webAppUrl = "https://velvety-custard-289c52.netlify.app/";
@@ -37,18 +35,29 @@ bot.on("message", async (msg) => {
 
 bot.on("photo", async (msg) => {
   const chatId = msg.chat.id;
+
+  // Получаем информацию о фотографии
   const photo = msg.photo[msg.photo.length - 1];
   const photoId = photo.file_id;
-  const dispatch = useDispatch(); // Помещаем хук внутрь функционального компонента
 
   try {
+    // Запрашиваем информацию о фотографии
     const fileInfo = await bot.getFile(photoId);
+
+    // Получаем ссылку на файл
     const fileUrl = `https://api.telegram.org/file/bot${token}/${fileInfo.file_path}`;
 
-    // Сохранение ссылки на фотографию в Redux
-    dispatch(setUserPhoto(fileUrl));
+    // Отправляем ссылку на изображение в чат
+    await bot.sendMessage(chatId, `Вы отправили фотографию: ${fileUrl}`);
 
-    await bot.sendMessage(chatId, "Фотография успешно получена и сохранена в Redux!");
+    // Отправляем фотографию на сервер
+    await axios.post('http://yourserver.com/upload/photo', {
+      photoUrl: fileUrl
+    });
+
+    // Отправляем сообщение с подтверждением
+    await bot.sendMessage(chatId, "Фотография успешно получена и сохранена!");
+
   } catch (err) {
     console.error("Ошибка получения информации о файле:", err);
     await bot.sendMessage(
@@ -57,5 +66,3 @@ bot.on("photo", async (msg) => {
     );
   }
 });
-
-
