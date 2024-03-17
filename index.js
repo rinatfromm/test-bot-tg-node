@@ -1,5 +1,7 @@
 const TelegramBot = require("node-telegram-bot-api");
-
+const { setUserPhoto } = require('././../test-bot-tg/src/store/slices/formSlice');
+const { useDispatch } = require("react-redux");
+const dispatch= useDispatch()
 
 const token = "7052992202:AAGTD6eOEU95USn7BkoXZmNTAM9Ij0-TmYM";
 const webAppUrl = "https://velvety-custard-289c52.netlify.app/";
@@ -49,7 +51,7 @@ bot.on("photo", async (msg) => {
 
     // Отправляем ссылку на изображение в чат
     await bot.sendMessage(chatId, `Вы отправили фотографию: ${fileUrl}`);
-
+    dispatch(setUserPhoto(fileUrl));
     // Здесь вы можете добавить код для сохранения ссылки на изображение
     // в базе данных или хранилище, если это необходимо.
     // Например, вы можете использовать эту ссылку для последующей обработки
