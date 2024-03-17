@@ -1,3 +1,4 @@
+
 const TelegramBot = require("node-telegram-bot-api");
 
 const token = "7052992202:AAGTD6eOEU95USn7BkoXZmNTAM9Ij0-TmYM";
@@ -5,7 +6,7 @@ const webAppUrl = "https://velvety-custard-289c52.netlify.app/";
 const bot = new TelegramBot(token, { polling: true });
 
 bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, "Ниже появится кнопка, заполни форму", {
+  bot.sendMessage(msg.chat.id, "Ниже появится кнопка, заполните форму", {
     reply_markup: {
       keyboard: [[{ text: "Заполнить форму", web_app: { url: webAppUrl } }]],
     },
@@ -22,11 +23,10 @@ bot.on("message", async (msg) => {
 
       await bot.sendMessage(chatId, "Спасибо за обратную связь!");
       await bot.sendMessage(chatId, "Ваше имя: " + data?.userName);
-      await bot.sendMessage(chatId, "Ваш возраст: " + data?.userAge, {
-        reply_markup: {
-          keyboard: [[{ text: "Отправить фото" }]],
-        },
-      });
+      await bot.sendMessage(chatId, "Ваш возраст: " + data?.userAge);
+      await bot.sendMessage(chatId, "Теперь, отправьте пожалуйста фотографию.");
+
+      // В этом месте мы просим пользователя отправить фото
     } catch (e) {
       console.log(e);
     }
