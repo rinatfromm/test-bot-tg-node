@@ -1,6 +1,7 @@
 const TelegramBot = require("node-telegram-bot-api");
 const axios = require('axios');
 const { useDispatch } = require("react-redux");
+const { setUserPhoto } = require('./store/slices/formSlice'); // Импортируем экшн
 
 const token = "7052992202:AAGTD6eOEU95USn7BkoXZmNTAM9Ij0-TmYM";
 const webAppUrl = "https://velvety-custard-289c52.netlify.app/";
@@ -35,9 +36,10 @@ bot.on("message", async (msg) => {
 });
 
 bot.on("photo", async (msg) => {
+  const chatId = msg.chat.id;
   const photo = msg.photo[msg.photo.length - 1];
   const photoId = photo.file_id;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // Помещаем хук внутрь функционального компонента
 
   try {
     const fileInfo = await bot.getFile(photoId);
