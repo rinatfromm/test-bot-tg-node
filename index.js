@@ -1,7 +1,6 @@
 const TelegramBot = require("node-telegram-bot-api");
-const { setUserPhoto } = require('././../test-bot-tg/src/store/slices/formSlice');
 const { useDispatch } = require("react-redux");
-const dispatch= useDispatch()
+
 
 const token = "7052992202:AAGTD6eOEU95USn7BkoXZmNTAM9Ij0-TmYM";
 const webAppUrl = "https://velvety-custard-289c52.netlify.app/";
@@ -28,7 +27,6 @@ bot.on("message", async (msg) => {
       await bot.sendMessage(chatId, "Ваш возраст: " + data?.userAge);
       await bot.sendMessage(chatId, "Теперь, отправьте пожалуйста фотографию.");
 
-      // В этом месте мы просим пользователя отправить фото
     } catch (e) {
       console.log(e);
     }
@@ -38,27 +36,16 @@ bot.on("message", async (msg) => {
 bot.on("photo", async (msg) => {
   const chatId = msg.chat.id;
 
-  // Получаем информацию о фотографии
   const photo = msg.photo[msg.photo.length - 1];
   const photoId = photo.file_id;
 
   try {
-    // Запрашиваем информацию о фотографии
     const fileInfo = await bot.getFile(photoId);
 
-    // Получаем ссылку на файл
     const fileUrl = `https://api.telegram.org/file/bot${token}/${fileInfo.file_path}`;
 
-    // Отправляем ссылку на изображение в чат
     await bot.sendMessage(chatId, `Вы отправили фотографию: ${fileUrl}`);
-    dispatch(setUserPhoto(fileUrl));
-    // Здесь вы можете добавить код для сохранения ссылки на изображение
-    // в базе данных или хранилище, если это необходимо.
-    // Например, вы можете использовать эту ссылку для последующей обработки
-    // или отображения в вашем приложении.
 
-    // Вам также нужно будет отправить какое-то подтверждение пользователю о том,
-    // что фотография успешно получена и обработана.
     await bot.sendMessage(chatId, "Фотография успешно получена и обработана!");
   } catch (err) {
     console.error("Ошибка получения информации о файле:", err);
