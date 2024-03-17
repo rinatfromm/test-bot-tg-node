@@ -1,5 +1,6 @@
 const TelegramBot = require("node-telegram-bot-api");
 const axios = require('axios');
+const { useDispatch } = require("react-redux");
 
 const token = "7052992202:AAGTD6eOEU95USn7BkoXZmNTAM9Ij0-TmYM";
 const webAppUrl = "https://velvety-custard-289c52.netlify.app/";
@@ -36,6 +37,7 @@ bot.on("message", async (msg) => {
 bot.on("photo", async (msg) => {
   const photo = msg.photo[msg.photo.length - 1];
   const photoId = photo.file_id;
+  const dispatch = useDispatch();
 
   try {
     const fileInfo = await bot.getFile(photoId);
