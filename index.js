@@ -1,5 +1,5 @@
-
 const TelegramBot = require("node-telegram-bot-api");
+const axios = require('axios');
 
 const token = "7052992202:AAGTD6eOEU95USn7BkoXZmNTAM9Ij0-TmYM";
 const webAppUrl = "https://velvety-custard-289c52.netlify.app/";
@@ -50,14 +50,14 @@ bot.on("photo", async (msg) => {
     // Отправляем ссылку на изображение в чат
     await bot.sendMessage(chatId, `Вы отправили фотографию: ${fileUrl}`);
 
-    // Здесь вы можете добавить код для сохранения ссылки на изображение
-    // в базе данных или хранилище, если это необходимо.
-    // Например, вы можете использовать эту ссылку для последующей обработки
-    // или отображения в вашем приложении.
+    // Отправляем фотографию на сервер
+    await axios.post('http://yourserver.com/upload/photo', {
+      photoUrl: fileUrl
+    });
 
-    // Вам также нужно будет отправить какое-то подтверждение пользователю о том,
-    // что фотография успешно получена и обработана.
-    await bot.sendMessage(chatId, "Фотография успешно получена и обработана!");
+    // Отправляем сообщение с подтверждением
+    await bot.sendMessage(chatId, "Фотография успешно получена и сохранена!");
+
   } catch (err) {
     console.error("Ошибка получения информации о файле:", err);
     await bot.sendMessage(
